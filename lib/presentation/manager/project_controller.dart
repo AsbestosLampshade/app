@@ -14,28 +14,20 @@ part 'project_controller.g.dart';
 
 List<Task> flattenAndRemoveSubtasks(List<Task> tasks) {
   final Map<int, Task> taskMap = {};
-  final Set<int> subtaskIds = {};
 
   for (final task in tasks) {
     taskMap[task.id] = task;
   }
 
   for (final task in tasks) {
-    for (final subtask in task.subtasks) {
-      subtaskIds.add(subtask.id);
-      if (!taskMap.containsKey(subtask.id)) {
-        taskMap[subtask.id] = subtask;
-      }
-    }
-  }
-
-  for (final subtaskId in subtaskIds) {
-    final subtask = taskMap[subtaskId];
-    if (subtask != null && subtask.parentTaskId != null) {
-      final parent = taskMap[subtask.parentTaskId];
+    if (task.parentTaskId != null) {
+      final parent = taskMap[task.parentTaskId];
       if (parent != null) {
-        if (!parent.subtasks.any((s) => s.id == subtask.id)) {
-          parent.subtasks.add(subtask);
+        final existingIdx = parent.subtasks.indexWhere((s) => s.id == task.id);
+        if (existingIdx >= 0) {
+          parent.subtasks[existingIdx] = task;
+        } else {
+          parent.subtasks.add(task);
         }
       }
     }

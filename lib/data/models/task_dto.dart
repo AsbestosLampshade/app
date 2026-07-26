@@ -66,7 +66,7 @@ class TaskDto extends Dto<Task> {
       dueDate = DateTime.parse(json['due_date']),
       startDate = DateTime.parse(json['start_date']),
       endDate = DateTime.parse(json['end_date']),
-      parentTaskId = json['parent_task_id'] ?? _extractParentTaskId(json),
+      parentTaskId = _extractParentTaskId(json),
       priority = json['priority'],
       repeatAfter = Duration(seconds: json['repeat_after']),
       color = json['hex_color'] != ''
@@ -186,8 +186,6 @@ class TaskDto extends Dto<Task> {
   );
 
   static int? _extractParentTaskId(Map<String, dynamic> json) {
-    final parentTask = json['parent_task_id'];
-    if (parentTask != null) return parentTask as int?;
     final related = json['related_tasks'];
     if (related is Map) {
       final parents = related['parenttask'];
@@ -199,10 +197,6 @@ class TaskDto extends Dto<Task> {
   }
 
   static List<TaskDto> _extractSubtasks(Map<String, dynamic> json) {
-    final direct = json['subtasks'];
-    if (direct is List) {
-      return direct.map((s) => TaskDto.fromJson(s)).toList();
-    }
     final related = json['related_tasks'];
     if (related is Map) {
       final subtaskList = related['subtask'];

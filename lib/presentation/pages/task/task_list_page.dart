@@ -67,7 +67,7 @@ class TaskListPage extends ConsumerWidget {
   }
 
   Widget _buildList(WidgetRef ref, BuildContext context, TaskPageModel model) {
-    final flatTasks = flattenTasks(deduplicateSubtasks(model.tasks));
+    final flatTasks = flattenTasks(model.tasks);
     if (flatTasks.isEmpty) {
       return EmptyView(Icons.list, AppLocalizations.of(context).noTasks);
     } else {

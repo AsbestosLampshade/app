@@ -114,7 +114,7 @@ class ProjectTaskList extends ConsumerWidget {
   }
 
   Widget _buildTaskList(WidgetRef ref, List<Task> tasks) {
-    final flatTasks = flattenTasks(deduplicateSubtasks(tasks));
+    final flatTasks = flattenTasks(tasks);
     return SliverReorderableList(
       itemBuilder: (context, index) {
         final entry = flatTasks[index];

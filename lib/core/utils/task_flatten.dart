@@ -21,19 +21,3 @@ List<FlattenedTaskEntry> flattenTasks(List<Task> tasks) {
   walk(tasks, 0);
   return result;
 }
-
-Set<int> _collectSubtaskIds(List<Task> tasks) {
-  final ids = <int>{};
-  for (final task in tasks) {
-    for (final sub in task.subtasks) {
-      ids.add(sub.id);
-      ids.addAll(_collectSubtaskIds(task.subtasks));
-    }
-  }
-  return ids;
-}
-
-List<Task> deduplicateSubtasks(List<Task> tasks) {
-  final ids = _collectSubtaskIds(tasks);
-  return tasks.where((t) => !ids.contains(t.id)).toList();
-}
