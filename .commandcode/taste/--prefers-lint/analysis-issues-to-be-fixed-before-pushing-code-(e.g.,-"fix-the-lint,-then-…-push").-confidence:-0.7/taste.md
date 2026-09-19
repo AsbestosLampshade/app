@@ -1,3 +1,4 @@
+# - Prefers lint/analysis issues to be fixed before pushing code (e.g., "fix the lint, then … push"). Confidence: 0.7
 - Prefers lint/analysis issues to be fixed before pushing code (e.g., "fix the lint, then … push"). Confidence: 0.7
 - Prefers using the GitHub CLI (`gh`) for GitHub interactions (e.g., PR checkout, pushing) over raw git commands. Confidence: 0.7
 - Prefers supporting only the current (newest) API format; no legacy fallbacks for pre-1.0 API fields. Api versioning will be used for future changes. Confidence: 0.9
